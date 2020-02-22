@@ -1,4 +1,6 @@
-import { Component } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
+import { ProductService } from './shared/product.service'
+import { IProduct } from './shared/product.model'
 
 @Component({
     selector: 'products-list',
@@ -7,47 +9,21 @@ import { Component } from '@angular/core'
             Product List      
         </h2>
         <hr/>
-    
-        <div *ngFor="let productMain of products">
+        <div *ngFor="let productMain of products" class="col-md-5">
             <product-thumbnail [product]="productMain"></product-thumbnail>
         </div>
     `
 })
 
-export class ProductsListComponent {
+export class ProductsListComponent implements OnInit {
 
-    products:any = [
-        {
-            id: 1,
-            name: 'iPhone XS',            
-            description: 'Latest phone from Apple Inc.',
-            price: 899.99,
-            category: 'Electronics'
-        },
-        {
-            id: 2,
-            name: 'Microsoft Mouse',
-            description: 'Laser mouse from Microsoft',
-            price: 55,
-            category: 'Electronics'
-        },
-        {
-            id: 3,
-            name: 'Adidas Fluid',
-            description: 'New generation shoes from Adidas',
-            price: 199,
-            category: 'Accessories'
-        },
-        {
-            id: 4,
-            name: 'Magic Egg',
-            description: 'Egg that can hatch',
-            price: 77,
-            category: 'Toys'
-        }
-    ]
+    products:IProduct[]
 
-    showMessage(data) {
-        console.log(data)
+    constructor(private productService: ProductService) {
+        
+    }
+
+    ngOnInit() {
+        this.products = this.productService.getProducts()
     }
 }
