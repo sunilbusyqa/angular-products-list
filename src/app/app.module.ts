@@ -12,6 +12,11 @@ import { appRoutes } from 'src/routes';
 import { CreateProductComponent } from './products/create-product.component';
 import { Error404Component } from './errors/404.component';
 import { ProductRouteActivator } from './products/product-details/product-route-activator.service';
+import { LoginComponent } from 'src/user/login.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from 'src/user/auth.service';
+import { ProfileComponent } from 'src/user/profile.component';
+import { PricePipe } from './products/shared/price.pipe';
 
 @NgModule({
   declarations: [
@@ -21,27 +26,22 @@ import { ProductRouteActivator } from './products/product-details/product-route-
     NavbarComponent,
     ProductDetailsComponent,
     CreateProductComponent,
-    Error404Component
+    Error404Component,
+    LoginComponent,
+    ProfileComponent,
+    PricePipe
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [
     ProductService,
     ProductRouteActivator,
-    {
-      provide: 'canDeactivateCreateEvent',
-      useValue: checkDirtyState
-    }
+    AuthService
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-
-export function checkDirtyState(component:CreateProductComponent) {
-  if (component.isDirty) {
-    return window.confirm('You have not saved this event, do you really want to cancel?')
-  }
-  return true
-}

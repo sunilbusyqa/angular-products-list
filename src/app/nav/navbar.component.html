@@ -13,6 +13,16 @@
             <a [routerLink]="['/products/new']">Create Product</a>
           </li>
         </ul>
+        <div class="navbar-header navbar-right">
+          <ul class="nav navbar-nav">
+            <li>
+              <a *ngIf="!authService.isAuthenticated()" [routerLink]="['user/login']">Login</a>
+            </li>
+            <li>
+              <a *ngIf="authService.isAuthenticated()" [routerLink]="['user/profile']">Welcome {{authService.currentUser.firstName}}</a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
