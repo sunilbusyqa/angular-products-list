@@ -5,9 +5,9 @@ import { IProduct } from './shared/product.model'
     selector: 'product-thumbnail',
     template: `
         <div [routerLink]="['/products', product.id]" class="well hover-well thumbnail">
-            <div>{{product.name}}</div>
+            <div>{{product.name | uppercase}}</div>
             <div>{{product.description}}</div>
-            <div [ngClass]="{ green : product.price <= 100, orange: product.price > 100 && product.price <= 200, red: product.price > 200}">\${{product.price}}</div>
+            <div [ngClass]="{ green : product.price <= 100, orange: product.price > 100 && product.price <= 200, red: product.price > 200}">{{product.price | price}}</div>
             <div>{{product.category}}</div>
         </div>
     `,
@@ -21,11 +21,4 @@ import { IProduct } from './shared/product.model'
 export class ProductThumbnailComponent {
 
     @Input() product:IProduct
-
-    checkPrice(product) {
-        if (product.price < 200) {
-            return true
-        }
-        return false
-    }
 }
